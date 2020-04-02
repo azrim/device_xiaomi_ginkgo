@@ -35,6 +35,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.bt.aac_frm_ctl.enabled=true \
     vendor.qcom.bluetooth.soc=cherokee
 
+# FM2 and its JNI
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.btstack.a2dp_offload_cap=sbc-aptx-aptxtws-aptxhd-aptxadaptive-aac-ldac \
+    persist.vendor.btstack.enable.splita2dp=true \
+    vendor.bluetooth.soc=cherokee
+
 # CNE and DPM
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.cne.feature=1 \
@@ -49,10 +55,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
+    persist.demo.hdmirotationlock=false \
+    persist.sys.sf.color_saturation=1.0 \
+    debug.mdpcomp.logs=0 \
     debug.egl.hw=0 \
     debug.sf.hw=0 \
     debug.sf.recomputecrop=0 \
-    debug.sf.latch_unsignaled=0 \
+    debug.sf.latch_unsignaled=1 \
     ro.opengles.version=196610 \
     ro.vendor.display.sensortype=2 \
     ro.vendor.display.cabl=0 \
@@ -64,8 +73,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.disable_hw_recovery_dump=1 \
     vendor.display.disable_inline_rotator=1 \
     vendor.display.disable_scaler=0 \
-    vendor.display.enable_default_color_mode=0 \
+    vendor.display.enable_default_color_mode=1 \
     vendor.display.enable_null_display=0 \
+    vendor.display.enable_optimize_refresh=1 \
+    vendor.display.disable_ui_3d_tonemap=1 \
     vendor.gralloc.disable_ubwc=0
 
 # Dalvik
@@ -133,6 +144,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.default_network=22,22 \
     telephony.lteOnCdmaDevice=1
 
+# SurfaceFlinger
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.surface_flinger.protected_contents=true
+
+# Early phase offset configuration for SurfaceFlinger
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.early_phase_offset_ns=500000 \
     debug.sf.early_app_phase_offset_ns=500000 \
