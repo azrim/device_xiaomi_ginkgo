@@ -5,3 +5,4 @@ allow hal_perf_default system_server:file { read };
 allow hal_perf_default system_server:file { open };
 allow hal_perf_default system_server:file { getattr };
 allow hal_perf_default surfaceflinger:dir { search };
+allow hal_perf_default hal_perf_default:capability { dac_override };
