@@ -5,9 +5,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/syberia_ginkgo.mk
+    $(LOCAL_DIR)/du_ginkgo.mk
 
 COMMON_LUNCH_CHOICES := \
-    syberia_ginkgo-user \
-    syberia_ginkgo-userdebug \
-    syberia_ginkgo-eng
+    du_ginkgo-user \
+    du_ginkgo-userdebug \
+    du_ginkgo-eng
