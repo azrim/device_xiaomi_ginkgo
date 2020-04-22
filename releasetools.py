@@ -35,4 +35,7 @@ def OTA_InstallEnd(info):
   info.script.Print("Patching firmware images...")
   AddImage(info, "vbmeta.img", "/dev/block/bootdevice/by-name/vbmeta")
   AddImage(info, "dtbo.img", "/dev/block/bootdevice/by-name/dtbo")
+  info.script.Mount("/vendor")
+  info.script.AppendExtra('run_program("/sbin/sh", "/tmp/install/bin/hide_nfc_ginkgo.sh");')
+  info.script.Unmount("/vendor")
   return
