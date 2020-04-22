@@ -25,7 +25,7 @@
    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
    OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 
 #include <cstdlib>
 #include <cstdio>
@@ -72,8 +72,14 @@ void vendor_load_properties()
 
     string device_region = GetProperty("ro.boot.hwc", "");
     string device_hwversion = GetProperty("ro.boot.hwversion", "");
-    device = "ginkgo";
-    model = "Redmi Note 8";
+
+    if (device_region == "Global_B" && device_hwversion == "18.39.0") {
+        device = "willow";
+        model = "Redmi Note 8T";
+    } else {
+        device = "ginkgo";
+        model = "Redmi Note 8";
+    }
 
     // Override all partitions' props
     string prop_partitions[] = { "", "odm.", "product.", "system.", "vendor." };
