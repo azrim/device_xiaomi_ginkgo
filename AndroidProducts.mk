@@ -5,9 +5,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/revengeos_ginkgo.mk
-
-COMMON_LUNCH_CHOICES := \
-    revengeos_ginkgo-user \
-    revengeos_ginkgo-userdebug \
-    revengeos_ginkgo-eng
+    $(LOCAL_DIR)/komodo_ginkgo.mk
