@@ -27,7 +27,9 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
+#include <cstdlib>
+#include <cstdio>
+#include <fstream>
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
 
@@ -35,29 +37,73 @@
 #include "property_service.h"
 #include "vendor_init.h"
 
+using android::base::GetProperty;
 using android::init::property_set;
+using std::string;
 
-void property_override(char const prop[], char const value[])
+void property_override(string prop, string value)
 {
-    prop_info *pi;
+    auto pi = (prop_info*) __system_property_find(prop.c_str());
 
-    pi = (prop_info*) __system_property_find(prop);
-    if (pi)
-        __system_property_update(pi, value, strlen(value));
+    if (pi != nullptr)
+        __system_property_update(pi, value.c_str(), value.size());
     else
-        __system_property_add(prop, strlen(prop), value, strlen(value));
+        __system_property_add(prop.c_str(), prop.size(), value.c_str(), value.size());
 }
 
-void property_override_dual(char const system_prop[], char const vendor_prop[],
-    char const value[])
+bool has_tianma_panel()
 {
-    property_override(system_prop, value);
-    property_override(vendor_prop, value);
+    std::ifstream cmdline("/proc/cmdline");
+    string line;
+    bool ret = false;
+
+    std::getline(cmdline, line);
+    if (line.find("tianma") != string::npos)
+        ret = true;
+
+    cmdline.close();
+    return ret;
 }
 
 void vendor_load_properties()
 {
-    // fingerprint
-    // property_override("ro.build.description", "ginkgo-user 9 PKQ1.190616.001 9.12.26 release-keys");
-    // property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "google/coral/coral:10/QQ1B.191205.011/5974828:user/release-keys");
+    string device, model, desc;
+    string fp = "google/coral/coral:10/QQ2A.200501.001.B2/6352890:user/release-keys";
+
+    string device_region = GetProperty("ro.boot.hwc", "");
+    string device_hwversion = GetProperty("ro.boot.hwversion", "");
+    device = "ginkgo";
+    model = "Redmi Note 8";
+
+    // Override all partitions' props
+    string prop_partitions[] = { "", "odm.", "product.", "system.", "vendor." };
+
+    for (const string &prop : prop_partitions) {
+        property_override(string("ro.product.") + prop + string("name"), device);
+        property_override(string("ro.product.") + prop + string("device"), device);
+        property_override(string("ro.product.") + prop + string("model"), model);
+        property_override(string("ro.") + prop + string("build.product"), device);
+        property_override(string("ro.") + prop + string("build.fingerprint"), fp);
+    }
+
+    // Hax for Tianma panels burn-in issue
+    // https://forum.xda-developers.com/redmi-note-8/how-to/huge-issue-custom-roms-spoiling-display-t4075133
+    if (has_tianma_panel()) {
+        FILE *red = fopen("/sys/module/msm_drm/parameters/kcal_red", "wb");
+        FILE *green = fopen("/sys/module/msm_drm/parameters/kcal_green", "wb");
+        FILE *blue = fopen("/sys/module/msm_drm/parameters/kcal_blue", "wb");
+
+        // Incase the kernel doesn't have KCAL support
+        if (red != NULL && green != NULL && blue != NULL) {
+            // 90% is the desired rgb value to prevent burn-in in Tianma panels
+            // 90% of default value 256 = 230.4 ~= 230
+            fprintf(red, "230\n");
+            fprintf(green, "230\n");
+            fprintf(blue, "230\n");
+
+            fclose(red);
+            fclose(green);
+            fclose(blue);
+        }
+    }
 }
