@@ -1783,7 +1783,7 @@ vendor/etc/sn100u_pnx_ese_fabkey.pnscr|b2ff3ed93a0bb1c57df58b27c0b6fd41fcc6f6e4
 vendor/etc/sn100u_bootup.pnscr|ef641bf68ae831f38552bfeb1c54b3f20b2421f6
 vendor/etc/sn100u_pnx_sst.pnscr|4937e0750dd61933512442a7e06aff76b8b01f02
 vendor/etc/sn100u_pnx_ese_free.pnscr|2af6a512000e27f5eae5c7cbf43b77b75569a4e9
-vendor/libnfc-nxp_RF.conf
+vendor/libnfc-nxp_RF.conf|231f0999d00b5abcefc99d4ae39ecc6808e53904
 
 # Neural-networks - from davinci-user 10 QKQ1.190825.002 V11.0.2.0.QFJCNXM release-keys
 vendor/bin/hw/android.hardware.neuralnetworks@1.2-service-qti|06613a0e0541e27ddf2af5e9c6512890012d0d06
