@@ -489,7 +489,3 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_BOOT_JARS += \
     WfdCommon
-
-#offline charging animation from pixys vendor
-PRODUCT_PACKAGES += \           
-	charger_res_images
