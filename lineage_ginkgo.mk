@@ -14,7 +14,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 $(call inherit-product, device/xiaomi/ginkgo/device.mk)
 
 # ANXCamera
-$(call inherit-product, vendor/ANXCamera/config.mk)
+$(call inherit-product, vendor/aeonax/ANXCamera/anx-vendor.mk)
 
 # Inherit some common LineageOS stuff.
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
