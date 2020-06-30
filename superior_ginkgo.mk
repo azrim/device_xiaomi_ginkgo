@@ -16,11 +16,14 @@ $(call inherit-product, device/xiaomi/ginkgo/device.mk)
 # ANXCamera
 $(call inherit-product, vendor/aeonax/ANXCamera/anx-vendor.mk)
 
-# Inherit some common LineageOS stuff.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+# Inherit some common Superior stuff
+$(call inherit-product, vendor/superior/config/common.mk)
+
+#Bootanimation Resolution
+TARGET_BOOT_ANIMATION_RES := 1080
 
 # Device identifier. This must come after all inclusions.
-PRODUCT_NAME := lineage_ginkgo
+PRODUCT_NAME := superior_ginkgo
 PRODUCT_DEVICE := ginkgo
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := Redmi Note 8
