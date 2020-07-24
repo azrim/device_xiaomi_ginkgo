@@ -52,6 +52,7 @@ void property_override(string prop, string value)
 void vendor_load_properties()
 {
     string device, model, desc;
+    string fp = "google/coral/coral:10/QQ3A.200705.002/6506677:user/release-keys";
 
     string device_region = GetProperty("ro.boot.hwc", "");
     string device_hwversion = GetProperty("ro.boot.hwversion", "");
@@ -72,6 +73,7 @@ void vendor_load_properties()
         property_override(string("ro.product.") + prop + string("device"), device);
         property_override(string("ro.product.") + prop + string("model"), model);
         property_override(string("ro.") + prop + string("build.product"), device);
+        property_override(string("ro.") + prop + string("build.fingerprint"), fp);
     }
 
     // Set hardware SKU prop
